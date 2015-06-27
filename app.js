@@ -2,6 +2,7 @@ var app = require('koa')()
 var cors = require('koa-cors')()
 var bodyParser = require('koa-body-parser')
 var router = require('koa-router')()
+var logger = require('koa-logger')
 var hogan = require('hogan')
 var fs = require('fs')
 var moment = require('moment')
@@ -15,6 +16,7 @@ var PORT = 3030
 
 app.use(cors)
 app.use(bodyParser())
+app.use(logger())
 
 function* render(url) {
   var tpl = hogan.compile(fs.readFileSync('./views/template.hbs', 'utf8'))
