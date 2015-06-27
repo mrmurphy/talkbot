@@ -9,10 +9,10 @@ var db = new NeDB({
 db = bluebird.promisifyAll(db)
 
 exports.create = function* (url, body) {
-  var body = _.merge({}, {
+  var body = _.merge({}, body, {
     url: url,
-    date: Date.now()
-  }, body)
+    date: body.date || Date.now()
+  })
   var saved = yield db.insertAsync(body)
   return saved
 }

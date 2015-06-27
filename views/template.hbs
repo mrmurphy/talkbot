@@ -46,6 +46,7 @@
     .talkbot .new-comment input[type="text"] {
       width: calc(100% - 3.6em);
       margin-right: .3em;
+      margin-bottom: .5em;
       box-sizing: border-box;
       height: 2em;
       border: none;
@@ -94,6 +95,8 @@
     <textarea rows="8" cols="40" name="talkbot-comment-body" id="talkbot-new-comment-body"></textarea>
     <label for="talkbot-name">Your Name</label>
     <input type="text" name="talkbot-name" id="talkbot-new-comment-name" value="">
+    <label for="talkbot-date">Date</label>
+    <input type="text" name="talkbot-date" id="talkbot-new-comment-date" value="">
     <button id="talkbot-submit">Go!</button>
     <p class="talkbot-http-error">Whoops! There was an error saving your comment. Please try again!</p>
   </form>

@@ -36,6 +36,12 @@ router.get('/post/:url', function*() {
 })
 
 router.post('/post/:url', function*() {
+  var body = this.request.body
+  if (body.date) {
+    body.date = +moment(body.date, 'MMM DD YYYY, HH:mm')
+  } else {
+    body.date = null
+  }
   var saved = yield Comments.create(this.params.url, this.request.body)
   this.body = yield render(this.params.url)
 })

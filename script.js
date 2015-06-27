@@ -22,12 +22,13 @@ function talkbot(settings) {
     return encodeURIComponent(cat)
   }
 
-  function postNewComment(name, body, success, error) {
+  function postNewComment(name, comment, date, success, error) {
     $.ajax({
       method: 'POST',
       data: JSON.stringify({
         author: name,
-        body: body
+        body: comment,
+        date: date
       }),
       contentType: 'application/json',
       url: host + '/post/' + currentURL(),
@@ -45,6 +46,7 @@ function talkbot(settings) {
 
     var nameField = $('#talkbot-new-comment-name')
     var commentField = $('#talkbot-new-comment-body')
+    var dateField = $('#talkbot-new-comment-date')
     var errorField = $('.talkbot-http-error')
 
     errorField.hide()
@@ -61,7 +63,8 @@ function talkbot(settings) {
       e.preventDefault()
       var name = nameField.val()
       var comment = commentField.val()
-      postNewComment(name, comment, onHtmlFetched.bind(null, true), function(err) {
+      var date = dateField.val()
+      postNewComment(name, comment, date, onHtmlFetched.bind(null, true), function(err) {
         errorField.slideDown()
       })
     })
