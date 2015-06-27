@@ -1,0 +1,100 @@
+<div class="talkbot" id="talkbot-wrapper">
+  <style>
+    .talkbot {
+      margin-bottom: 5em;
+    }
+
+    .talkbot .old-comment-header {
+      font-size: 1em;
+      padding: 1em;
+      border-bottom: 1px solid #eee;
+      padding-left: 0;
+    }
+
+    .talkbot .old-comment-header .date {
+      font-size: .75em;
+      font-weight: normal;
+      color: #ccc;
+      margin-left: 1em;
+    }
+
+    .talkbot .new-comment label {
+      display: block;
+      color: #888;
+      font-size: .75em;
+    }
+
+    .talkbot .new-comment textarea {
+      margin-bottom: .5em;
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: .2em;
+      border: 1px solid #eee;
+      transition: 400ms;
+      padding: .5em;
+    }
+
+    .talkbot .new-comment button {
+      width: 3em;
+      border-radius: .2em;
+      border: 1px solid #AAA;
+      background: white;
+      color: #AAA;
+      height: 2em;
+    }
+
+    .talkbot .new-comment input[type="text"] {
+      width: calc(100% - 3.6em);
+      margin-right: .3em;
+      box-sizing: border-box;
+      height: 2em;
+      border: none;
+      border-bottom: 1px solid #eee;
+      padding-left: .5em;
+      transition: 400ms;
+    }
+
+    .talkbot .new-comment input[type="text"]:focus {
+      outline: none;
+      border-bottom: 1px solid #888;
+    }
+
+    .talkbot .new-comment textarea:focus {
+      outline: none;
+      border: 1px solid #888;
+    }
+
+    .talkbot-http-error {
+      padding: .5em;
+      font-size: 0.8em;
+      color: white;
+      background: #e74c3c;
+      border: 1px solid #cc4335;
+      border-radius: .3em;
+      margin-top: 1em;
+    }
+  </style>
+
+  <div class="comments">
+    {{#comments}}
+      <div class="old-comment">
+        <h2 class="old-comment-header">
+          {{author}}
+          <span class="date">{{date}}</span>
+        </h2>
+        <p class="old-comment-body">
+          {{{body}}}
+        </p>
+      </div>
+    {{/comments}}
+  </div>
+
+  <form class="new-comment" id="talkbot-new-comment-form">
+    <label for="talkbot-comment-body">Say Something</label>
+    <textarea rows="8" cols="40" name="talkbot-comment-body" id="talkbot-new-comment-body"></textarea>
+    <label for="talkbot-name">Your Name</label>
+    <input type="text" name="talkbot-name" id="talkbot-new-comment-name" value="">
+    <button id="talkbot-submit">Go!</button>
+    <p class="talkbot-http-error">Whoops! There was an error saving your comment. Please try again!</p>
+  </form>
+</div>
