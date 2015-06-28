@@ -18,5 +18,20 @@ exports.create = function* (url, body) {
 }
 
 exports.readAll = function* (url) {
-  return yield db.findAsync({url: url})
+  // If no results are returned, try stripping the last letter, and looking
+  // for results there. If found, update all comments with the correct URL.
+  // This is a temporary bugfix.
+  var results = yield db.findAsync({url: url})
+  if ((results && results.length == 0) || !results) {
+    results = yield db.findAsync({url: url.slice(0, url.length - 1)})
+    if ((results && results.length == 0) || !results) {
+      return results
+    }
+    for (var i = 0; i < results.length; i++) {
+      var oldUrl = results[i].url
+      results[i].url = url
+      yield db.updateAsync({_id: results[i]._id}, results[i])
+    }
+  }
+  return results
 }
