@@ -35,14 +35,20 @@ router.get('/post/:url', function*() {
   this.body = yield render(this.params.url)
 })
 
-router.post('/post/:url', function*() {
-  var body = this.request.body
-  if (body.date) {
-    body.date = +moment(body.date, 'MMM DD YYYY, HH:mm')
-  } else {
-    body.date = null
+function parseOldComment(body) {
+  if (!body.author) {
+    var lines = body.body.split('\n')
+    return {
+      author: lines[0],
+      body: _.slice(lines, 1, lines.length - 1).join('\n'),
+      date: +moment(lines[lines.length - 1], 'MMM DD YYYY, HH:mm')
+    }
   }
-  var saved = yield Comments.create(this.params.url, this.request.body)
+}
+
+router.post('/post/:url', function*() {
+  var body = parseOldComment(this.request.body)
+  var saved = yield Comments.create(this.params.url, body)
   this.body = yield render(this.params.url)
 })
 
