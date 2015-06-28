@@ -16,7 +16,7 @@ function talkbot(settings) {
 
   function currentURL() {
     var cat = location.host + location.pathname
-    if (cat.endsWith('/')) {
+    if (cat[cat.length] == '/') {
       cat = cat.slice(0, cat.length - 2)
     }
     return encodeURIComponent(cat)
