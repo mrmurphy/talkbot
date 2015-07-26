@@ -47,7 +47,8 @@ function parseOldComment(body) {
 }
 
 router.post('/post/:url', function*() {
-  var body = parseOldComment(this.request.body)
+  /*var body = parseOldComment(this.request.body)*/
+  var body = this.request.body
   var saved = yield Comments.create(this.params.url, body)
   this.body = yield render(this.params.url)
 })
